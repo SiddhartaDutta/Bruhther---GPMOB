@@ -1,6 +1,6 @@
-# Bruhther---GPMOB
+# Bruhther Discord Bot
 Bruhther - General Purpose Mini-Game Oriented Bot
 
-Bruhther is a bot designed to bring some spice to your server with a multitude of mini-games for users to enjoy with other entertainment-oriented features such as music.
+Bruhther is a Discord bot featuring mini-games and the ability to play audio in Discord voice channels.
 
 Created and Developed by Siddharta Dutta
