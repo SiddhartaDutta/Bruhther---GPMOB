@@ -12,11 +12,11 @@
 import os
 import discord
 from discord.ext import commands
-#from test import returna
+from Cogs.usercmds_cog import usercmds_cog
 import asyncio
 
 # BOT COGS
-from usercmds_cog import usercmds_cog
+#from usercmds_cog import usercmds_cog
 from music_cog import music_cog
 from coinflip_cog import coinflip_cog
 from crash_cog import crash_cog
@@ -25,7 +25,7 @@ from crash_cog import crash_cog
 from threads import setPresence
 
 # SET COMMAND PREFIX
-Bruhther_Bot = commands.Bot(command_prefix = "$")
+Bruhther_Bot = commands.Bot(command_prefix = "$", description = "TEST DESC")
 
 # INITIALIZE
 # *************************************************************** #
@@ -34,7 +34,6 @@ Bruhther_Bot = commands.Bot(command_prefix = "$")
 @Bruhther_Bot.event
 async def on_connect():
     print('Client: Successfully connected to Discord')
-
 
   # log into discord
 @Bruhther_Bot.event
