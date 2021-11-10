@@ -49,7 +49,7 @@ class crash_cog(commands.Cog):
     # clears reactions to prevent multiple choices
     await reaction.message.clear_reactions()
 
-    runMax = float(random.randint(0,200)) / 100.00
+    runMax = float(random.randint(0,200)) / 10.00
 
     # finalize runMax with rigged 
 
@@ -61,10 +61,10 @@ class crash_cog(commands.Cog):
 
     while(self.CRASH_RUN and currentMult < runMax):
       
-      await self.sentMsg.edit(content = "> " + "Wager: " + str(self.wager) + "\n> " + "Multiplier: " + str(currentMult))
-
-      currentMult += 0.01
+      currentMult += 0.1
       currentMult = round(currentMult, 2)
+
+      await self.sentMsg.edit(content = "> " + "Wager: " + str(self.wager) + "\n> " + "Multiplier: " + str(currentMult))
       
       await asyncio.sleep(0.5)
 
