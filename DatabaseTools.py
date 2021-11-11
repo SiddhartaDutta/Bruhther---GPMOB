@@ -8,6 +8,32 @@
 #
 #######################################
 
+import json
+
+def dbSearch_JSON(user, channel, returnType):
+
+  # int for "LOC" return option
+  loc = 0
+
+  with open('userDatabase.json', 'r') as tempDBAccess:
+
+    tempJsonObj = json.load(tempDBAccess)
+
+    # scan through json tree looking for matching user id
+    for num in range(len(tempJsonObj)):
+
+      # update location
+      loc = num
+
+      if(tempJsonObj['userData'][num]['id'] == user.id):
+        pass
+
+      pass
+
+    pass
+
+  pass
+
 # Searches for user id - Returns "True" if found, "False" if not
 def dbSearch(user, channel, returnType):
 
