@@ -15,24 +15,43 @@ def dbSearch_JSON(user, channel, returnType):
   # int for "LOC" return option
   loc = 0
 
+  # memory cache user data Json object file
   with open('userDatabase.json', 'r') as tempDBAccess:
 
     tempJsonObj = json.load(tempDBAccess)
 
-    # scan through json tree looking for matching user id
+    # scan through Json tree looking for matching user id
     for num in range(len(tempJsonObj)):
 
       # update location
       loc = num
 
+      # if user id found, return requested data
       if(tempJsonObj['userData'][num]['id'] == user.id):
-        pass
 
-      pass
+        # return based on requested data type
+          # return boolean
+        if returnType == "BOOL":
+          return True
 
-    pass
+          # return location in Json tree (float)
+        elif returnType == "FLOAT":
+          return float(loc)
 
-  pass
+          # return balance (float)
+        elif returnType == "BAL":
+          return float(tempJsonObj['userData'][num]['balance'])
+          
+  # return that user was not found
+    # return boolean
+  if returnType == "BOOL":
+    return False
+
+    # return float
+  else:
+    return float(0)
+    #await channel.send("Runtime Error: DBTOOLS-dbSearch-L51")
+
 
 # Searches for user id - Returns "True" if found, "False" if not
 def dbSearch(user, channel, returnType):
@@ -86,6 +105,27 @@ def dbSearch(user, channel, returnType):
   else:
     pass
     #await channel.send("Runtime Error: DBTOOLS-dbSearch-L51")
+
+# Write new user data to Json database
+def dbWrite_JSON(user, balance):
+
+  # create temporary Python object
+  newUser = {
+              'id': user.id,
+              'balance': float(100)
+  }
+
+  # memory cache user data Json object file
+  with open('userDatabase.json', 'a') as tempDBAccess:
+
+    # create a temporary Json object from Json in DBFILE
+    tempJsonObj = json.load(tempDBAccess)
+
+    # append temp Json object
+    tempJsonObj['userData'].append(newUser)
+
+    # load Json object into DBFILE
+    json.dump(tempJsonObj, tempDBAccess, indent = 2)
 
 # Write new to databases
 def dbWrite(user, balance):
