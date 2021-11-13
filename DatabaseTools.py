@@ -10,7 +10,7 @@
 
 import json
 
-def dbSearch_JSON(user, channel, returnType):
+def dbSearch_JSON(user, returnType):
 
   # int for "LOC" return option
   loc = 0
@@ -18,6 +18,7 @@ def dbSearch_JSON(user, channel, returnType):
   # memory cache user data Json object file
   with open('userDatabase.json', 'r') as tempDBAccess:
 
+    # create a temporary Json object from Json in DBFILE
     tempJsonObj = json.load(tempDBAccess)
 
     # scan through Json tree looking for matching user id
@@ -137,6 +138,32 @@ def dbWrite(user, balance):
   with open("Balances.txt", "a") as tempFileAccess_BAL:
     # write to bal
     tempFileAccess_BAL.write(" \n" + str(balance))
+
+# Amend bal info based on user "location" on Json tree
+def dbAmend_JSON(user, wager: float, operation, multiplier: float):
+
+  # get user location on tree
+  loc = dbSearch_JSON(user, "INT")
+
+  # memory cache user data Json object file
+  with open('userDatabase.json', 'a') as tempDBAccess:
+
+    # create a temporary Json object from Json in DBFILE 
+    tempJsonObj = json.load(tempDBAccess)
+
+    # if add operation, then add into balance
+    if operation == "ADD":
+
+      # add into balance
+      tempJsonObj['userData'][loc]['balance'] = float( float(tempJsonObj['userData'][loc]['balance']) + (multiplier * wager) )
+      
+    else:
+
+      # subtract wager
+      tempJsonObj['userData'][loc]['balance'] = float( float(tempJsonObj['userData'][loc]['balance']) - wager )
+
+  # load Json object into DBFILE
+  json.dump(tempJsonObj, tempDBAccess, indent = 2)
 
 # amend bal info based on user "location"
 def dbAmend(user, wager, operation, multiplier):
