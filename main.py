@@ -12,36 +12,48 @@
 import os
 import discord
 from discord.ext import commands
-from Cogs.usercmds_cog import usercmds_cog
 import asyncio
-
-# BOT COGS
-#from usercmds_cog import usercmds_cog
-from music_cog import music_cog
-from coinflip_cog import coinflip_cog
-from crash_cog import crash_cog
 
 # BOT THREADS
 from threads import setPresence
 
-# SET COMMAND PREFIX
-Bruhther_Bot = commands.Bot(command_prefix = "$", description = "TEST DESC")
+# BOT COGS
+# *************************************************************** #
+
+  # Utility Cogs
+from Cogs_Utilities.usercmds_cog import usercmds_cog
+from Cogs_Utilities.music_cog import music_cog
+
+  # Minigame Cogs
+from Cogs_Minigames.coinflip_cog import coinflip_cog
+from Cogs_Minigames.crash_cog import crash_cog
+
+# *************************************************************** #
+
+
 
 # INITIALIZE
 # *************************************************************** #
 
-  # connect to discord servers
+# SET COMMAND PREFIX
+Bruhther_Bot = commands.Bot(command_prefix = "$", description = "TEST DESC")
+
+# connect to discord servers
 @Bruhther_Bot.event
 async def on_connect():
     print('Client: Successfully connected to Discord')
 
-  # log into discord
+# log into discord
 @Bruhther_Bot.event
 async def on_ready():
     print('Client: Logged in as -> {0.user}'.format(Bruhther_Bot))
     #await activateThreads(Bruhther_Bot,)
     await asyncio.sleep(10)
     await setPresence(Bruhther_Bot)
+
+# *************************************************************** #
+
+
 
 # ATTACH COGS
 # *************************************************************** #

@@ -11,7 +11,7 @@
 # IMPORTS
 import random
 from discord.ext import commands
-import DatabaseTools
+import Cogs_Utilities.DatabaseTools
 
 # COINFLIP_COG CLASS
 class coinflip_cog(commands.Cog):
@@ -58,7 +58,7 @@ class coinflip_cog(commands.Cog):
     await reaction.message.clear_reactions()
 
     # verifies and processes wager
-    runCon = await DatabaseTools.dbRunPlayer(user, reaction.message.channel, wager)
+    runCon = await Cogs_Utilities.DatabaseTools.dbRunPlayer(user, reaction.message.channel, wager)
 
     if runCon:
 
@@ -94,7 +94,7 @@ class coinflip_cog(commands.Cog):
 
       # if user wins, add back (wager * multiplier) to user balance
       if globals()[win]:
-        DatabaseTools.dbAmend(user, wager, "ADD", 2.0)
+        Cogs_Utilities.DatabaseTools.dbAmend(user, wager, "ADD", 2.0)
 
     else:
       pass

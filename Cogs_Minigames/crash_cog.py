@@ -12,7 +12,7 @@
 import random
 from discord.ext import commands
 import asyncio
-import DatabaseTools
+import Cogs_Utilities.DatabaseTools
 
 # COINFLIP_COG CLASS
 class crash_cog(commands.Cog):
