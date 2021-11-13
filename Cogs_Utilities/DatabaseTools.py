@@ -22,6 +22,8 @@ def dbSearch_JSON(user, returnType):
     tempJsonObj = json.load(tempDBAccess)
 
     # scan through Json tree looking for matching user id
+    print(range(len(tempJsonObj)))
+
     for num in range(len(tempJsonObj)):
 
       # update location
@@ -41,6 +43,7 @@ def dbSearch_JSON(user, returnType):
 
           # return balance (float)
         elif returnType == "BAL":
+          print(float(tempJsonObj['userData'][num]['balance']))
           return float(tempJsonObj['userData'][num]['balance'])
           
   # return that user was not found
@@ -63,10 +66,13 @@ def dbWrite_JSON(user, balance):
   }
 
   # memory cache user data Json object file
-  with open('userDatabase.json', 'a') as tempDBAccess:
+  with open('userDatabase.json', 'r') as tempDBAccess:
 
     # create a temporary Json object from Json in DBFILE
     tempJsonObj = json.load(tempDBAccess)
+
+  # memory cache user data Json object file
+  with open('userDatabase.json', 'w') as tempDBAccess:
 
     # append temp Json object
     tempJsonObj['userData'].append(newUser)
@@ -78,13 +84,17 @@ def dbWrite_JSON(user, balance):
 def dbAmend_JSON(user, wager: float, operation, multiplier: float):
 
   # get user location on tree
-  loc = dbSearch_JSON(user, "INT")
+  loc = dbSearch_JSON(user, "FLOAT")
+  loc = int(loc)
 
   # memory cache user data Json object file
-  with open('userDatabase.json', 'a') as tempDBAccess:
+  with open('userDatabase.json', 'r') as tempDBAccess:
 
     # create a temporary Json object from Json in DBFILE 
     tempJsonObj = json.load(tempDBAccess)
+
+  # memory cache user data Json object file
+  with open('userDatabase.json', 'w') as tempDBAccess:
 
     # if add operation, then add into balance
     if operation == "ADD":
@@ -104,7 +114,7 @@ def dbAmend_JSON(user, wager: float, operation, multiplier: float):
 def dbProcessWager(user, channel, wager):
 
   # if wager too high, return false
-  if (dbSearch_JSON(user, None, "BAL") - wager) < 0:
+  if (dbSearch_JSON(user, "BAL") - wager) < 0:
     return False
   else:
     return True
@@ -115,7 +125,7 @@ def dbProcessWager(user, channel, wager):
 async def dbRunPlayer(user, channel, wager):
 
   # check if player does NOT exist
-  if dbSearch_JSON(user, None, "BOOL") != True:
+  if dbSearch_JSON(user, "BOOL") != True:
     dbWrite_JSON(user, 100)
 
   # if player exists, check if wager is too high, if not, amend balance, return "True" to run game
