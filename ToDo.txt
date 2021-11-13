@@ -1,4 +1,1 @@
-- fix bal writes
-- add decimal wagers
-- json data files
-- send dbSearch error code to Iyes
+- create an incrementation variable for outputting float locations

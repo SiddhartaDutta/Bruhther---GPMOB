@@ -22,15 +22,18 @@ def dbSearch_JSON(user, returnType):
     tempJsonObj = json.load(tempDBAccess)
 
     # scan through Json tree looking for matching user id
-    print(range(len(tempJsonObj)))
+    #print(range(len(tempJsonObj)))
+    #loc = 0
 
-    for num in range(len(tempJsonObj)):
+    for num in tempJsonObj['userData']:
 
       # update location
       loc = num
 
+      print(str(num))
+
       # if user id found, return requested data
-      if(tempJsonObj['userData'][num]['id'] == user.id):
+      if(num['id'] == user.id):
 
         # return based on requested data type
           # return boolean
@@ -39,12 +42,12 @@ def dbSearch_JSON(user, returnType):
 
           # return location in Json tree (float)
         elif returnType == "FLOAT":
+          print(loc)
           return float(loc)
 
           # return balance (float)
         elif returnType == "BAL":
-          print(float(tempJsonObj['userData'][num]['balance']))
-          return float(tempJsonObj['userData'][num]['balance'])
+          return float(num['balance'])
           
   # return that user was not found
     # return boolean
@@ -107,8 +110,8 @@ def dbAmend_JSON(user, wager: float, operation, multiplier: float):
       # subtract wager
       tempJsonObj['userData'][loc]['balance'] = float( float(tempJsonObj['userData'][loc]['balance']) - wager )
 
-  # load Json object into DBFILE
-  json.dump(tempJsonObj, tempDBAccess, indent = 2)
+    # load Json object into DBFILE
+    json.dump(tempJsonObj, tempDBAccess, indent = 2)
 
 # process wager
 def dbProcessWager(user, channel, wager):
