@@ -24,7 +24,7 @@ class usercmds_cog(commands.Cog):
 
   @commands.command(name = "balance", help = "Outputs your current balance in SC")
   async def balance(self, ctx):
-    await ctx.channel.send("Your balance is: " + str( Cogs_Utilities.DatabaseTools.dbSearch(ctx.message.author, ctx.channel, "BAL")) + " SC")
+    await ctx.channel.send("Your balance is: " + str( Cogs_Utilities.DatabaseTools.dbSearch_JSON(ctx.message.author, ctx.channel, "BAL")) + " SC")
 
   @commands.command
   async def bal(self, ctx):
