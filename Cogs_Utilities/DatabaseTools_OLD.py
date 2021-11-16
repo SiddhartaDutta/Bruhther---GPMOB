@@ -1,8 +1,8 @@
 #######################################
 #
-# File: DatabaseTools.py
+# File: DatabaseTools_OLD.py
 #
-# Created: Sat Sep 18 2021 17:29 PT
+# Created: Fri Nov 13 2021 18:26 PT
 #
 # Created by Siddharta Dutta
 #
@@ -120,35 +120,3 @@ def dbAmend(user, wager, operation, multiplier):
         tempFileAccess_BAL.write(str(balData[0]))
       else:
         tempFileAccess_BAL.write(" \n" + str(balData[x]))
-
-# process wager
-def dbProcessWager(user, channel, wager):
-
-  # if wager too high, return false
-  if (dbSearch(user, None, "BAL") - wager) < 0:
-    return False
-  else:
-    return True
-
-# *************************************************************** #
-
-# runs player-wager routine
-async def dbRunPlayer(user, channel, wager):
-
-  # check if player does NOT exist
-  if dbSearch(user, None, "BOOL") != True:
-    dbWrite(user, 100)
-
-  # if player exists, check if wager is too high, if not, amend balance, return "True" to run game
-  if dbProcessWager(user, channel, wager) == True:
-    dbAmend(user, wager, None, None)
-    return True
-  
-  elif dbProcessWager(user, channel, wager) == False:
-    await channel.send("Request Error: Insufficient Funds")
-    return False
-
-  # fail safe to pause game
-  else:
-    await channel.send("Runtime Error: DBTOOLS-dbRunPlayer-L143\n\tPlease message Iyes#8866")
-    return False
