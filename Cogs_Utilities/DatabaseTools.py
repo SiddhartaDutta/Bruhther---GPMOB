@@ -12,25 +12,17 @@ import json
 
 def dbSearch_JSON(user, returnType):
 
-  # int for "LOC" return option
-  loc = 0
-
   # memory cache user data Json object file
   with open('userDatabase.json', 'r') as tempDBAccess:
 
     # create a temporary Json object from Json in DBFILE
     tempJsonObj = json.load(tempDBAccess)
 
-    # scan through Json tree looking for matching user id
-    #print(range(len(tempJsonObj)))
-    #loc = 0
+    # counter for Json branch location / int for "LOC" return option
+    loc = 0
 
+    # traverse through Json tree
     for num in tempJsonObj['userData']:
-
-      # update location
-      loc = num
-
-      print(str(num))
 
       # if user id found, return requested data
       if(num['id'] == user.id):
@@ -42,12 +34,14 @@ def dbSearch_JSON(user, returnType):
 
           # return location in Json tree (float)
         elif returnType == "FLOAT":
-          print(loc)
           return float(loc)
 
           # return balance (float)
         elif returnType == "BAL":
           return float(num['balance'])
+
+      # update location
+      loc = loc + 1
           
   # return that user was not found
     # return boolean

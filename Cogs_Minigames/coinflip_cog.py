@@ -94,7 +94,7 @@ class coinflip_cog(commands.Cog):
 
       # if user wins, add back (wager * multiplier) to user balance
       if globals()[win]:
-        Cogs_Utilities.DatabaseTools.dbAmend(user, wager, "ADD", 2.0)
+        Cogs_Utilities.DatabaseTools.dbAmend_JSON(user, wager, "ADD", 2.0)
 
     else:
       pass
